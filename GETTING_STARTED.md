@@ -36,6 +36,9 @@ In order to launch locally the client, you’ll need a running backend. [Here](h
 Once you’ve a backend up and running on http://localhost:4000/api/graphql, you can move further running the client.
 *(nd. If you just want to run `storybook`, there is no need to install and run any backend, as stories are populated with fake data)*
 
+Change your `.env` file to use the correct backend. The `zenpub` dev API currently starts on port `4004`
+`REACT_APP_GRAPHQL_ENDPOINT=http://localhost:4004/api/graphql`
+
 ##### Get the code
 `git clone https://gitlab.com/CommonsPub/Client.git commonspub`
 
