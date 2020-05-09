@@ -69,7 +69,7 @@ yarn add locale en_GB en_US es_MX es_ES fr_FR eu ar_SA
 ##### Launch CommonsPub
 `yarn start`
 
-Visit http://localhost:3000 🌱
+Visit http://localhost:4000 🌱
 
 ##### or launch Storybook
 `yarn storybook`
