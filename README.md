@@ -11,7 +11,7 @@ This codebase was forked from [MoodleNet](http://moodle.net/).
 
 ## Documentation 
 
-Do you wish to run the client on your local machine? Read the [Getting started](https://gitlab.com/CommonsPub/Client/blob/develop/GETTING_STARTED.md).
+Do you wish to run the client on your local machine? Read the [Getting started](GETTING_STARTED.md).
 
 ---
 
