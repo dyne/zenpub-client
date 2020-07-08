@@ -1,0 +1,7 @@
+.git/
+.gitignore
+Dockerfile
+Makefile
+uploads/
+node_modules
+data/search

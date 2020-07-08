@@ -3,12 +3,12 @@ version: '3.5'
 services:
   backend:
     #image: "commonspub/commonspub:stable" # use stable/production/master release of backend
-    image: "commonspub/commonspub:latest" # uncomment to use unstable/staging/develop backend branch
+    image: 'commonspub/commonspub:latest' # uncomment to use unstable/staging/develop backend branch
     # On a Raspbery Pi, you must first build your own backend Docker image from the source
     restart: always
     ports:
-      - "4000:4000"
-      - "81:80"
+      - '4000:4000'
+      - '81:80'
     env_file:
       - .env
       - .env.secrets
@@ -21,11 +21,11 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: "Dockerfile.pi"
+      dockerfile: 'Dockerfile.pi'
     restart: always
     ports:
-     - "80:80"
-     - "443:443"
+      - '80:80'
+      - '443:443'
     env_file:
       - .env
     volumes:
@@ -39,7 +39,7 @@ services:
   db:
     image: postgres:9.6-alpine
     volumes:
-       - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     # ports:
     #   - "5432:5432"
     env_file:
@@ -47,4 +47,4 @@ services:
       - .env.secrets
 
 volumes:
-   postgres_data:
+  postgres_data:

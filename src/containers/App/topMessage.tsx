@@ -12,14 +12,7 @@ export const TopMessage: React.FC = () => {
       <Alert variant="warning">
         <div style={{ textAlign: 'center' }}>
           This site is currently in active development. We are looking forward to reading your
-          feedback and ideas in our{' '}
-          <a
-            href="https://tracker.moodle.org/projects/MDLNET/summary"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Tracker
-          </a>
+          feedback and ideas in our issue tracker
           <span
             style={{
               cursor: 'pointer',

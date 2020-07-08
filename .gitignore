@@ -46,6 +46,7 @@ yarn.lock
 # sentry
 sentry.tsx
 
-# user uploads
+# user data
 uploads/*
 !uploads/index.html
+data/
