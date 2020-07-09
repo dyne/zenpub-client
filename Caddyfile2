@@ -8,7 +8,7 @@ tls {
 
 # define paths that should be proxied to Elixir backend
 @backend {
-  path /api/* /pub/* /oauth/* /.well-known/webfinger* /.well-known/nodeinfo* /my/* /instance/* /«/* /@* /&* /+* /css/* /js/* /fonts/* /images/* /live/*
+  path /api* /pub/* /oauth/* /.well-known/webfinger* /.well-known/nodeinfo* /my* /instance* /«/* /@* /&* /+* /css/* /js/* /fonts/* /images/* /live/*
 }
 
 root * /frontend
