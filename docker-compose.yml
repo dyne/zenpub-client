@@ -48,8 +48,8 @@ services:
       - .env.secrets
   search:
     image: getmeili/meilisearch
-    ports:
-      - '7707:7700'
+    # ports:
+    #   - '7707:7700'
     volumes:
       - './data/search:/data.ms'
 

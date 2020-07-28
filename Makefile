@@ -2,6 +2,7 @@
 
 init: 
 	@echo "Running build script"
+	@touch .erlang.cookie 
 	@chmod 700 .erlang.cookie 
 
 help: init
