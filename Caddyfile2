@@ -11,15 +11,30 @@ tls {
   path / /api* /pub* /oauth* /.well-known/webfinger* /.well-known/nodeinfo* /phoenix* /live* /instance* /~* /!* /@* /&* /+* /css/* /js/* /fonts/* /images/* 
 }
 
-root /frontend /frontend
-root /uploads /frontend/uploads
 
-route {
+route @backend {
     
   # backend proxying
-  reverse_proxy @backend backend:4000 
+  reverse_proxy backend:4000 
+
+}
+
+route /uploads/* {
+  
+  root * /frontend/
 
   # fallback to index (for single page site)
+  try_files {path} 
+
+  # serve static files
+  file_server 
+}
+
+route /frontend/* {
+
+  root /frontend /frontend
+
+  # fallback to React FE 
   try_files {path} /frontend/index.html
 
   # serve static frontend
