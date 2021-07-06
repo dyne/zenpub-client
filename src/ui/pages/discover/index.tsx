@@ -16,8 +16,8 @@ import styled from 'ui/themes/styled';
 import { FormikHook } from 'ui/@types/types';
 
 import { LoadMore } from 'ui/modules/Loadmore';
-import { SidePanel } from 'ui/modules/SidePanel';
 import { ReactElement } from 'react';
+import { SidePanelHOC } from 'HOC/modules/SidePanel/SidePanel';
 
 export interface Props {
   tabPaths: {
@@ -46,7 +46,6 @@ export const Discover: React.FC<Props> = ({
       <HomeBox>
         <WrapperCont>
           <WrapperFeatured>{FeaturedCommunitiesBox}</WrapperFeatured>
-          <WrapperFeatured mt={2}>{FeaturedCollectionsBox}</WrapperFeatured>
           <Wrapper>
             <Menu tabPaths={tabPaths} />
             <Switch>
@@ -68,7 +67,7 @@ export const Discover: React.FC<Props> = ({
           </Wrapper>
         </WrapperCont>
       </HomeBox>
-      <SidePanel />
+      <SidePanelHOC />
     </MainContainer>
   );
 };
@@ -84,9 +83,6 @@ const Menu: React.FC<{ tabPaths: Props['tabPaths'] }> = ({ tabPaths }) => (
       </NavLink>
       <NavLink exact to={tabPaths.communities}>
         <Trans>All communities</Trans>
-      </NavLink>
-      <NavLink exact to={tabPaths.collections}>
-        <Trans>All collections</Trans>
       </NavLink>
     </MenuList>
   </>

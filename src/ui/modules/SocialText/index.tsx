@@ -44,11 +44,10 @@ const SocialTextArea = styled(Textarea)`
   background: ${props => props.theme.colors.appInverse};
   flex: 1;
   border: 0 !important;
-  font-size: 16px !important;
   &:focus {
     outline: none;
   }
-  font-family: 'Open Sans', sans-serif !important;
+  font-family: 'Barlow', 'Open Sans', sans-serif !important;
 `;
 
 const SocialActions = styled(Flex)`

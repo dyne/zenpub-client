@@ -1,0 +1,8 @@
+query economicResourcesFiltered($agent: [ID]) {
+  economicResourcesFiltered(agent: $agent) {
+    id
+    name
+    note
+    image
+  }
+}

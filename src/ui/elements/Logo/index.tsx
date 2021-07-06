@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'ui/themes/styled';
 import { INSTANCE_TAGLINE } from 'mn-constants'; // + instance_bg_img
+import { GRAPHQL_ENDPOINT } from 'mn-constants';
 import { Link } from 'react-router-dom';
 import { LocaleContext } from 'context/global/localizationCtx';
 import { logo_large_url } from 'mn-constants';
@@ -21,6 +22,7 @@ const LogoContainer: FC<Props> = props => {
         </Link>
       )}
       <Tagline>{i18n._(INSTANCE_TAGLINE)}</Tagline>
+      <Tagline>{GRAPHQL_ENDPOINT}</Tagline>
     </Header>
   );
 };
@@ -43,7 +45,6 @@ const Logo = styled.div`
 `;
 
 const Tagline = styled.h5`
-  font-size: 16px;
   margin-top: 8px;
   margin-bottom: 40px;
   color: #000000a1;

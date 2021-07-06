@@ -103,7 +103,7 @@ const Bavatar = styled(Box)`
   }
 `;
 
-const Icon = styled(Box)`
+export const Icon = styled(Box)`
   cursor: pointer;
   height: 40px;
   width: 40px;
@@ -134,7 +134,6 @@ display: flex;
 align-items: center;
 input {
   width: 100%;
-  font-size: 13px;
   border-radius: 4px;
   max-width: 500px;
   height: 40px;
@@ -231,7 +230,8 @@ const Sidebar = styled(Box)`
 `;
 
 const Content = styled(Box)`
-  overflow: auto;
+  // Enable to put the right side scrollbar next to the content
+  //overflow: auto;
 `;
 
 const Header = styled(Box)`

@@ -37,42 +37,29 @@ export const ActivityPreview: FC<Props> = activity => {
   if (activity.status === Status.Loading) {
     return <Trans>loading...</Trans>;
   }
+
+  const eventLowerCase = activity.event.toLowerCase();
+  const smallOrBig = eventLowerCase.includes('like') || eventLowerCase.includes('flag');
+  const SmallOrBigActor = smallOrBig ? SmallActorComp : ActorComp;
+  const addThreadUrl =
+    (smallOrBig && eventLowerCase.includes('commented')) ||
+    eventLowerCase.includes('discussion') ||
+    eventLowerCase.includes('comment');
+  const threadUrl = addThreadUrl ? activity.threadUrl : undefined;
+
   return (
     <FeedItem mb={2}>
-      {activity.event.toLowerCase().includes('like') ||
-      activity.event.toLowerCase().includes('flag')
-        ? activity.actor && <SmallActorComp actor={activity.actor} event={activity.event} />
-        : activity.event.toLowerCase().includes('commented')
-        ? activity.actor && (
-            <SmallActorComp
-              actor={activity.actor}
-              commentActor={activity.commentActor}
-              event={activity.event}
-              threadUrl={activity.threadUrl}
-            />
-          )
-        : activity.event.toLowerCase().includes('discussion') ||
-          activity.event.toLowerCase().includes('comment')
-        ? activity.actor && (
-            <ActorComp
-              actor={activity.actor}
-              createdAt={activity.createdAt}
-              threadUrl={activity.threadUrl}
-              event={activity.event}
-              communityLink={activity.communityLink}
-              communityName={activity.communityName}
-            />
-          )
-        : activity.actor && (
-            <ActorComp
-              actor={activity.actor}
-              createdAt={activity.createdAt}
-              event={activity.event}
-              communityLink={activity.communityLink}
-              communityName={activity.communityName}
-            />
-          )}
-
+      {activity.actor && (
+        <SmallOrBigActor
+          actor={activity.actor}
+          createdAt={activity.createdAt}
+          threadUrl={threadUrl}
+          event={activity.event}
+          commentActor={eventLowerCase.includes('commented') ? activity.commentActor : undefined}
+          communityLink={activity.communityLink}
+          communityName={activity.communityName}
+        />
+      )}
       <Contents mt={2}>
         <Wrapper>{activity.preview}</Wrapper>
       </Contents>
@@ -191,7 +178,6 @@ const Name = styled(Text)`
   text-decoration: none;
   display: flex;
   align-items: center;
-  font-size: 14px;
   flex-direction: row;
   a {
     font-weight: 800;
@@ -218,7 +204,6 @@ const FeedItem = styled(Box)`
   position: relative;
   padding: 16px;
   word-wrap: break-word;
-  font-size: 14px;
   ${clearFix()};
   transition: background 0.5s ease;
   margin-top: 0

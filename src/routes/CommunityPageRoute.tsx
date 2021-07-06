@@ -1,8 +1,8 @@
-import React, { FC, useMemo } from 'react';
-import { CommunityPageTab, CommunityPage } from 'HOC/pages/community/CommunityPage';
+import { CommunityPage, CommunityPageTab } from 'HOC/pages/community/CommunityPage';
 import { NotFoundHOC } from 'HOC/pages/not-found/NotFound';
-import { RouteComponentProps, RouteProps } from 'react-router-dom';
 import { WithSidebarTemplate } from 'HOC/templates/WithSidebar/WithSidebar';
+import React, { FC, useMemo } from 'react';
+import { RouteComponentProps, RouteProps } from 'react-router-dom';
 import { locationHelper } from './lib/helper';
 
 interface CommunityPageRouter {
@@ -12,15 +12,20 @@ interface CommunityPageRouter {
 const CommunityPageRouter: FC<RouteComponentProps<CommunityPageRouter>> = ({ match }) => {
   const communityId = match.params.communityId;
   const maybeTabStr = match.params.tab;
+
   const tab =
     maybeTabStr === 'timeline'
       ? CommunityPageTab.Activities
-      : maybeTabStr === 'members'
+      : // : maybeTabStr === 'inventory'
+      // ? CommunityPageTab.Inventory
+      maybeTabStr === 'members'
       ? CommunityPageTab.Members
       : maybeTabStr === 'discussions'
       ? CommunityPageTab.Discussions
       : !maybeTabStr
-      ? CommunityPageTab.Collections
+      ? // ? CommunityPageTab.Collections
+        // maybeTabStr
+        CommunityPageTab.Intents
       : null;
 
   const props = useMemo<CommunityPage | null>(() => {
@@ -46,14 +51,16 @@ const CommunityPageRouter: FC<RouteComponentProps<CommunityPageRouter>> = ({ mat
 
 export const CommunityPageRoute: RouteProps = {
   exact: true,
-  path: '/communities/:communityId/:tab(timeline|members|discussions)?',
+  path: '/communities/:communityId/:tab(timeline|members|discussions|intents)?',
   component: CommunityPageRouter
 };
 
-type Tab = undefined | 'timeline' | 'members' | 'discussions';
-type Params = {
+type Tab = undefined | 'timeline' | 'members' | 'discussions' | 'intents';
+export type CommunityPageRouterParams = {
   communityId: string;
   tab: Tab;
 };
 
-export const communityLocation = locationHelper<Params, undefined>(CommunityPageRoute);
+export const communityLocation = locationHelper<CommunityPageRouterParams, undefined>(
+  CommunityPageRoute
+);

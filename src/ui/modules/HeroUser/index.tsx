@@ -18,6 +18,7 @@ export enum Status {
 export interface Loading {
   status: Status.Loading;
 }
+
 export interface Loaded {
   status: Status.Loaded;
   me: boolean;
@@ -29,10 +30,12 @@ export interface Loaded {
   location: string;
   summary: string;
 }
+
 export interface LoadedMe extends Loaded {
   me: true;
   isAdmin: boolean;
 }
+
 export interface LoadedOther extends Loaded {
   me: false;
   following: boolean;
@@ -41,6 +44,7 @@ export interface LoadedOther extends Loaded {
   toggleDropdown(): unknown;
   flag(): any;
 }
+
 export type Props = LoadedMe | LoadedOther | Loading;
 
 export const HeroUser: FC<Props> = props => {
@@ -101,7 +105,7 @@ export const HeroUser: FC<Props> = props => {
           <HeroTitle sx={{ fontSize: '18px' }} mt={2} variant="heading" fontWeight={'bold'}>
             {props.name}
           </HeroTitle>
-          <Username mt={1} fontSize={2}>
+          <Username mt={1}>
             @{props.displayUsername}
             {props.me && props.isAdmin && <AdminBadge ml={2}>Admin</AdminBadge>}
           </Username>
@@ -178,14 +182,12 @@ const ProfileBox = styled(Box)`
 const Username = styled(Text)`
   color: ${props => props.theme.colors.mediumdark};
   font-weight: 500;
-  font-size: 14px;
 `;
 
 const Location = styled(Flex)`
   color: ${props => props.theme.colors.mediumdark};
   font-weight: 500;
   line-height: 26px;
-  font-size: 14px;
   border-radius: 100px;
   align-items: center;
   span {

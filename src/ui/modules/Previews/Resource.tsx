@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { typography } from 'mn-constants';
 import { ellipsis } from 'polished';
 import * as React from 'react';
-import { ExternalLink, Flag, MoreHorizontal, Paperclip, Share, Star } from 'react-feather';
+import { ExternalLink, Flag, MoreHorizontal, Paperclip, Star } from 'react-feather';
 import { NavLink } from 'react-router-dom';
 // import { FileText, ExternalLink, Star } from 'react-feather';
 import { Box, Flex, Heading, Text } from 'rebass/styled-components';
@@ -66,6 +66,7 @@ export const Resource: React.FC<Props> = ({
   toggleFlag,
   sendToMoodle
 }) => {
+  const PaperClipOrExternalLink = isFile ? Paperclip : ExternalLink;
   return (
     <Bordered>
       {isSearch && (
@@ -76,16 +77,10 @@ export const Resource: React.FC<Props> = ({
       <Wrapper p={2}>
         {icon !== '' ? (
           <Avatar size="m" src={icon} />
-        ) : isFile ? (
-          <ResourceThumb>
-            <IconWrapper>
-              <Paperclip strokeWidth="2" size={64} />
-            </IconWrapper>
-          </ResourceThumb>
         ) : (
           <ResourceThumb>
             <IconWrapper>
-              <ExternalLink strokeWidth="2" size={64} />
+              <PaperClipOrExternalLink strokeWidth="2" size={64} />
             </IconWrapper>
           </ResourceThumb>
         )}
@@ -93,26 +88,18 @@ export const Resource: React.FC<Props> = ({
           <TitleLink href={link} target="_blank">
             {/* <Badge mt={1}>Video</Badge> */}
             <Title flex="1">
-              {isFile ? (
-                <Paperclip strokeWidth="1" size={18} />
-              ) : (
-                <ExternalLink strokeWidth="1" size={18} />
-              )}
+              <PaperClipOrExternalLink strokeWidth="1" size={18} />
               {name}
             </Title>
           </TitleLink>
           {isFile ? (
-            <>
-              <TypeItem mt={1}>{license}</TypeItem>
-            </>
+            <TypeItem mt={1}>{license}</TypeItem>
           ) : (
-            <>
-              <LinkResource>
-                <a href={link} target="_blank" rel="noopener noreferrer">
-                  <TextLink flex={1}>{link}</TextLink>
-                </a>
-              </LinkResource>
-            </>
+            <LinkResource>
+              <a href={link} target="_blank" rel="noopener noreferrer">
+                <TextLink flex={1}>{link}</TextLink>
+              </a>
+            </LinkResource>
           )}
           <Summary variant="text" mt={2}>
             {summary}
@@ -121,7 +108,7 @@ export const Resource: React.FC<Props> = ({
       </Wrapper>
       <Meta>
         <Collection ml={2}>
-          Added in <NavLink to={collectionLink}> +{collectionName}</NavLink>
+          Added in: <NavLink to={collectionLink}> {collectionName}</NavLink>
         </Collection>
         {hideActions ? null : (
           <Actions>
@@ -158,12 +145,6 @@ export const Resource: React.FC<Props> = ({
                         </Text>
                       </DropdownItem>
                     )}
-                    <DropdownItem onClick={sendToMoodle}>
-                      <Share size={18} />
-                      <Text sx={{ flex: 1 }} ml={2}>
-                        <Trans>Send to Moodle</Trans>
-                      </Text>
-                    </DropdownItem>
                   </Dropdown>
                 </Right>
               )}
@@ -188,7 +169,6 @@ const Meta = styled(Flex)`
 
 const Collection = styled(Flex)`
   flex: 1;
-  font-size: 13px;
   a {
     text-decoration: underline;
     font-weight: 600;
@@ -294,7 +274,6 @@ const TypeItem = styled(Text)`
   text-transform: uppercase;
   border-radius: 4px;
   padding: 4px 8px;
-  font-size: 12px;
   font-weight: 600;
   cursor: default;
   margin-right: 4px;
@@ -327,7 +306,6 @@ const IconWrapper = styled.div`
 //   border-radius: 10px;
 //   border: 1px solid;
 //   padding: 0px 6px;
-//   font-size: 11px;
 //   cursor: default;
 //   margin-right: 6px;
 //   display: inline-flex;
@@ -335,7 +313,6 @@ const IconWrapper = styled.div`
 
 const TextLink = styled(Text)`
   ${ellipsis('380px')};
-  font-size: 13px;
   color: ${props => props.theme.colors.mediumdark};
 `;
 
@@ -379,6 +356,5 @@ const Infos = styled(Box)`
 `;
 const Title = styled(Heading)`
   color: ${props => props.theme.colors.darker};
-  font-size: 18px;
   text-decoration: none;
 `;

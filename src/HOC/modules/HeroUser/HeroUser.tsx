@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useUser } from 'fe/user/useUser';
 import { useFormik } from 'formik';
 import { User } from 'graphql/types.generated';

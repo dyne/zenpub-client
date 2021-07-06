@@ -6,14 +6,11 @@ import { logo_large_url, APP_NAME, related_urls } from 'mn-constants';
 import { create } from '@storybook/theming';
 import StoryRouter from 'storybook-react-router';
 
-
 const theme = create({
   brandImage: logo_large_url,
   brandTitle: APP_NAME,
   url: related_urls.code
 });
-
-
 
 addParameters({
   options: {
@@ -23,15 +20,13 @@ addParameters({
   docs: {
     container: DocsContainer,
     page: DocsPage,
-    prepareForInline: (storyFn) => storyFn(),
-
+    prepareForInline: storyFn => storyFn()
   }
 });
 
 addDecorator(withA11y);
 addDecorator(themeDeco());
-addDecorator(StoryRouter())
-
+addDecorator(StoryRouter());
 
 const loaderFn = () => {
   // const allExports = [];
@@ -60,6 +55,7 @@ const loaderFn = () => {
     require('../src/ui/pages/user/b.stories.mdx'),
     require('../src/ui/pages/settings/admin.stories.mdx'),
     require('../src/ui/pages/notFound/a.stories.mdx'),
+    require('../src/ui/pages/maps/a.stories.mdx'),
     // Modules
     require('../src/ui/modules/ActivityPreview/a.stories.mdx'),
     require('../src/ui/modules/ShareLink/a.stories.mdx'),
@@ -67,6 +63,8 @@ const loaderFn = () => {
     require('../src/ui/modules/ConfirmationPanel/a.stories.mdx'),
     require('../src/ui/modules/CreateCollectionPanel/a.stories.mdx'),
     require('../src/ui/modules/CreateCommunityPanel/a.stories.mdx'),
+    require('../src/ui/modules/CreateIntentPanel/a.stories.mdx'),
+    require('../src/ui/modules/CreateResourcePanel/a.stories.mdx'),
     require('../src/ui/modules/EditCollectionPanel/a.stories.mdx'),
     require('../src/ui/modules/EditCommunityPanel/a.stories.mdx'),
     require('../src/ui/modules/EditResourcePanel/a.stories.mdx'),
@@ -83,8 +81,8 @@ const loaderFn = () => {
     require('../src/ui/modules/Previews/a.stories.mdx'),
     require('../src/ui/modules/Sidebar/a.stories.mdx'),
     require('../src/ui/modules/SocialText/a.stories.mdx'),
-
-  ]
+    require('../src/ui/modules/ProposedIntentPanel/a.stories.mdx')
+  ];
   // allExports.push(Intro.map(a => a))
   // allExports.push(pages.map(a => a))
 

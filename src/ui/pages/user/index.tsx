@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { ellipsis } from 'polished';
 import * as React from 'react';
 import { Link } from 'react-feather';
@@ -108,11 +109,9 @@ export const User: React.FC<Props> = ({
       <WrapperPanel>
         {userLink.length > 0 ? (
           <Panel>
-            <PanelTitle fontSize={0} fontWeight={'bold'}>
-              Relevant links
-            </PanelTitle>
+            <PanelTitle fontWeight={'bold'}>Relevant links</PanelTitle>
             <Nav>
-              <NavItem fontSize={1}>
+              <NavItem>
                 <Flex>
                   <Link size={20} />{' '}
                   <a href={userLink} target="_blank" rel="noopener noreferrer">
@@ -143,16 +142,13 @@ const Menu = ({
 }) => (
   <MenuList p={3} pt={3}>
     <NavLink exact to={`${basePath}`}>
-      Recent activity
+      <Trans>Recent activity</Trans>
     </NavLink>
     <NavLink exact to={`${basePath}/starred`}>
-      Starred
+      <Trans>Starred</Trans>
     </NavLink>
     <NavLink exact to={`${basePath}/communities`}>
-      {totalCommunities} communities
-    </NavLink>
-    <NavLink exact to={`${basePath}/collections`}>
-      {totalCollections} collections
+      <Trans>{totalCommunities} communities</Trans>
     </NavLink>
     {/* <NavLink exact to={`${basePath}/following`}>
       {totalUsers} following

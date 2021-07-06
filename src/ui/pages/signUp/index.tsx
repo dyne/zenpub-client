@@ -67,7 +67,7 @@ export const SignUpPage: React.FC<Props> = ({ formik, registeredUsername, regist
               </Link>
             </Browse>
           </Wrapper>
-          >{/* <Alert variant="negative">{formik.errors.email}</Alert> */}
+          {/* <Alert variant="negative">{formik.errors.email}</Alert> */}
         </Box>
       ) : (
         <LoginWrapper>
@@ -279,7 +279,6 @@ const FormWrapper = styled.form`
 //     & li {
 //       float: left;
 //       margin-right: 16px;
-//       font-size: 13px;
 //       & a {
 //         color: rgba(0, 0, 0, 0.45);
 //         text-decoration: none;

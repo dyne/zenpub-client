@@ -1,10 +1,10 @@
 import { LocaleContext } from 'context/global/localizationCtx';
 import { logo_small_url, prompt_signin } from 'mn-constants';
 import { darken, ellipsis } from 'polished';
-import React, { ReactElement } from 'react';
-import { ChevronDown, ChevronLeft } from 'react-feather';
+import React, { ReactElement, useState } from 'react';
+import { ChevronDown, ChevronLeft, MapPin } from 'react-feather';
 // import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Box, Flex, Text } from 'rebass/styled-components';
 import media from 'styled-media-query';
@@ -12,7 +12,8 @@ import media from 'styled-media-query';
 import Avatar from 'ui/elements/Avatar';
 import styled from 'ui/themes/styled';
 // import Avatar from 'ui/elements/Avatar';
-import { DropdownSidebar } from './dropdown';
+import { DropdownSidebar, CreateDropdown } from './dropdown';
+import { communityLocation, CommunityPageRouterParams } from 'routes/CommunityPageRoute';
 
 export interface Props {
   user: null | {
@@ -25,6 +26,8 @@ export interface Props {
   Search: ReactElement;
   toggleSideBar(): unknown;
   createCommunity(): unknown;
+  createIntent(): unknown;
+  createResource: any;
   isOpenDropdown: boolean;
   toggleDropdown(): unknown;
 }
@@ -32,6 +35,11 @@ export interface Props {
 export const MainHeader: React.FC<Props> = props => {
   const history = useHistory();
   const { i18n } = React.useContext(LocaleContext);
+  const location = useLocation();
+  const params = useParams<CommunityPageRouterParams>();
+  const isCommunityPage = communityLocation.is(location.pathname);
+  const [isCreateOpen, toggleCreate] = useState(false);
+
   return (
     <HeaderWrapper>
       <Container>
@@ -49,7 +57,34 @@ export const MainHeader: React.FC<Props> = props => {
             {/* <Input /> */}
             {props.Search}
           </Search>
+          {isCommunityPage && (
+            <MapLink to={`/communities/${params.communityId}/map/`} title="Map">
+              <MapPin size="20" />
+            </MapLink>
+          )}
         </Left>
+        <CreateNav>
+          {props.user && (
+            <NavItem sx={{ position: 'relative' }} alignItems="center" onClick={toggleCreate}>
+              <HeaderName ml={2} variant="link">
+                Create
+              </HeaderName>
+              <Right>
+                <ChevronDown size="20" />
+              </Right>
+              {isCreateOpen && (
+                <CreateDropdown
+                  createCommunity={props.createCommunity}
+                  createResource={props.createResource}
+                  createIntent={props.createIntent}
+                  toggleDropdown={() => {
+                    toggleCreate(!isCreateOpen);
+                  }}
+                />
+              )}
+            </NavItem>
+          )}
+        </CreateNav>
         <Header alignItems={'center'}>
           {props.user ? (
             <NavItem
@@ -72,7 +107,6 @@ export const MainHeader: React.FC<Props> = props => {
               {props.isOpenDropdown && (
                 <DropdownSidebar
                   isAdmin={props.user.isAdmin}
-                  createCommunity={props.createCommunity}
                   logout={props.user.logout}
                   userLink={props.user.link}
                   toggleDropdown={props.toggleDropdown}
@@ -98,14 +132,13 @@ const Container = styled(Box)`
   max-width: 1096px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 200px;
+  grid-template-columns: 1fr 120px 200px;
 `;
 const Search = styled(Box)`
   display: flex;
   margin-top: 7px;
   input {
     width: 100%;
-    font-size: 13px;
     border-radius: 4px;
     max-width: 500px;
     height: 36px;
@@ -113,6 +146,11 @@ const Search = styled(Box)`
     border: 0;
     background: ${props => props.theme.colors.app};
   }
+`;
+
+const MapLink = styled(Link)`
+  display: flex;
+  align-items: center;
 `;
 
 const Right = styled(Box)`
@@ -128,23 +166,36 @@ const NavItem = styled(Flex)`
   border-radius: 0px;
   padding: 4px 8px;
   border-radius: 4px;
-  margin-top: 5px;
-  float: right;
   &:hover {
     background: ${props => props.theme.colors.lighter};
   }
   ${media.lessThan('1280px')`
-img {
-    margin-right: 0;
-}
-`};
+    img {
+        margin-right: 0;
+    }
+  `};
 `;
 
 const Header = styled(Box)`
   cursor: pointer;
+  display: flex;
   flex: 0 0 200px;
   order: 2;
   justify-content: flex-end;
+  align-items: center;
+  img {
+    min-width: 36px;
+    height: 36px;
+    border-radius: 36px;
+  }
+`;
+const CreateNav = styled(Box)`
+  cursor: pointer;
+  display: flex;
+  flex: 0 0 120px;
+  order: 2;
+  justify-content: center;
+  align-items: center;
   img {
     min-width: 36px;
     height: 36px;
@@ -165,12 +216,10 @@ const Signin = styled(NavItem)`
   }
   a {
     text-decoration: none;
-    font-size: 13px;
   }
   div {
     text-decoration: none;
     color: ${props => props.theme.colors.lighter};
-    font-size: 13px;
   }
 `;
 const Icon = styled(Box)`
@@ -196,7 +245,7 @@ const Icon = styled(Box)`
 
 const Left = styled(Box)`
   display: grid;
-  grid-template-columns: auto auto 1fr;
+  grid-template-columns: auto auto 1fr auto;
   column-gap: 8px;
 `;
 

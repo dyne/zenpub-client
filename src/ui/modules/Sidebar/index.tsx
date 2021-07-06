@@ -121,7 +121,6 @@ img {
 const ItemTitle = styled(Text)`
   height: 50px;
   line-height: 50px;
-  font-size: 14px;
   font-weight: 600;
   color: ${props => props.theme.colors.darker};
   a:focus,
@@ -149,7 +148,6 @@ const ItemTitleDir = styled(ItemTitle)`
 // const HeaderName = styled(Text)`
 //   flex: 1;
 //   ${ellipsis('180px')};
-//   font-size: 15px;
 // `;
 
 export interface CommunityPreview {
@@ -177,7 +175,6 @@ export type Props = SidebarLoaded | SidebarLoading;
 export const Sidebar: React.FC<Props> = props => {
   const { i18n } = React.useContext(LocaleContext);
 
-  //  console.log('isSidebarOpen ' + props.isSidebarOpen );
   return (
     <>
       {props.isSidebarOpen ? (
@@ -209,7 +206,7 @@ export const Sidebar: React.FC<Props> = props => {
                     </Nav>
                     <Nav>
                       {props.communities.map((community: CommunityPreview, i) => (
-                        <CommunityLink exact key={community.link} to={community.link}>
+                        <CommunityLink key={community.link} to={community.link}>
                           <NavItem alignItems={'center'} mb={2}>
                             <Avatar
                               size="s"

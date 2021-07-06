@@ -1,0 +1,20 @@
+import { Meta, Story, Props, Preview } from '@storybook/addon-docs/blocks'
+import { PropsTable } from '@storybook/components'
+import { useGetEditResourceModalProps } from 'ui/mock/editResourceModal'
+import { CreateResourcePanel } from 'ui/modules/CreateResourcePanel'
+import { action } from '@storybook/addon-actions'
+import Modal from 'ui/modules/Modal'
+
+<Meta title="Modules|Create Resource" component={CreateResourcePanel} />
+
+# CreateResourcePanel
+
+Let's define a story for the `Create Resource Panel preview` module
+
+<Preview>
+  <Story name="Create Resource">
+    <Modal closeModal={action('close modal')}>
+      <CreateResourcePanel  {...useGetEditResourceModalProps()} />
+    </Modal>
+  </Story>
+</Preview>

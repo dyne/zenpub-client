@@ -18,7 +18,7 @@ import {
   AnonResetPasswordMutationName,
   AnonResetPasswordRequestMutationName,
   AnonSignUpMutationName
-} from 'fe/session/anon.generated';
+} from '../fe/session/anon.generated';
 import { MeLogoutMutationName } from 'fe/session/me.generated';
 import { GraphQLError } from 'graphql';
 import HttpStatus from 'http-status-codes';
@@ -43,6 +43,7 @@ const AUTH_TOKEN_KEY = 'AUTH_TOKEN';
 
 export default async function initialise({ localKVStore, appLinks }: Cfg) {
   let authToken = localKVStore.get(AUTH_TOKEN_KEY);
+
   const fragmentMatcher = new IntrospectionFragmentMatcher({
     introspectionQueryResultData
   });

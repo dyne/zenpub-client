@@ -11,24 +11,12 @@ export const useAnon = () => {
   const client = useApolloClient();
   const [loginMut, loginStatus] = GQL.useAnonLoginMutation();
   const [resetPwdMut, resetPwdStatus] = GQL.useAnonResetPasswordMutation();
-  const [
-    confirmEmailMut,
-    confirmEmailStatus
-  ] = GQL.useAnonConfirmEmailMutation();
+  const [confirmEmailMut, confirmEmailStatus] = GQL.useAnonConfirmEmailMutation();
   const [signUpMut, signUpStatus] = GQL.useAnonSignUpMutation();
   //  const [usernameAvailableQ, usernameAvailableStatus] = GQL.useAnonUsernameAvailableLazyQuery();
-  const [
-    resetPwdReqMut,
-    resetPwdReqStatus
-  ] = GQL.useAnonResetPasswordRequestMutation();
+  const [resetPwdReqMut, resetPwdReqStatus] = GQL.useAnonResetPasswordRequestMutation();
   return useMemo(() => {
-    const resetPwd = ({
-      password,
-      token
-    }: {
-      token: string;
-      password: string;
-    }) => {
+    const resetPwd = ({ password, token }: { token: string; password: string }) => {
       if (resetPwdStatus.loading) {
         return;
       }
@@ -79,10 +67,7 @@ export const useAnon = () => {
     };
     const usernameAvailable = (username: string) => {
       return client
-        .query<
-          GQL.AnonUsernameAvailableQuery,
-          GQL.AnonUsernameAvailableQueryVariables
-        >({
+        .query<GQL.AnonUsernameAvailableQuery, GQL.AnonUsernameAvailableQueryVariables>({
           query: GQL.AnonUsernameAvailableDocument,
           variables: { username }
         })
